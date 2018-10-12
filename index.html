@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Academic Index Comparison</title>
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		<script src="https://code.highcharts.com/highcharts.js"></script>
+		<script src="https://code.highcharts.com/highcharts-more.js"></script>
+		<script src="https://code.highcharts.com/modules/exporting.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+		<script src="js/index.js"></script>
+		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+		<link href="css/screen.css" rel="stylesheet">
+	</head>
+<body>
+	<!-- div style="float:right;padding-right:20px;padding-bottom:10px">
+		<div><img style="text-align:right" src="img/lnrt_logo.png" alt="LexisNexis Univentio" /></div>
+		<div style="float:right;">
+
+			<input type="text" id="foo" value="">
+			<button class="btn" data-clipboard-target="#foo" alt="Share Comparison" title="Share Comparison">
+				<img class="clippy"  style="width:13px;" src="https://clipboardjs.com/assets/images/clippy.svg" alt="Copy to clipboard">
+			</button>
+		</div>
+	</div-->	 
+	<!-- div style="padding-left:20px">
+		<h1>Portofolio Comparison</h1>
+	</div -->
+	
+
+	<div style="height:350px;width:100%;overflow: hidden;">
+		<div id="un1" style="position: absolute; font-weight: bold; font-size:1.8em; margin:40px; color:#FFF;text-shadow: 3px 3px #000000;width:50%">University 1</div>
+		<div id="ct1" style="position: absolute;top: 5%;  font-weight: bold; font-size:6em; margin:40px; color:#FFF;text-shadow: 3px 3px #000000;width:50%">0</div>
+		<div id="nt1" style="position: absolute;top: 16%;  font-weight: bold; font-size:1.7em; margin:40px; color:#FFF;text-shadow: 3px 3px #000000;width:50%">PUBLICATIONS</div>
+		<div id="un2" style="position: absolute;left:50%; font-weight: bold;font-size:1.8em; margin:40px;color:#FFF;text-shadow: 3px 3px #000000;width:50%">University 2</div>
+		<div id="ct2" style="position: absolute;left:50%; top: 5%;   font-weight: bold;font-size:6em; margin:40px;color:#FFF;text-shadow: 3px 3px #000000;width:50%">0</div>
+		<div id="ct2" style="position: absolute;left:50%; top: 16%;   font-weight: bold;font-size:1.7em; margin:40px;color:#FFF;text-shadow: 3px 3px #000000;width:50%">PUBLICATIONS</div>
+		
+		<img id="backgd" src="img/davide-cantelli-153517-unsplash.jpg" style="width:100%" />
+
+	</div>
+	<div>
+		<div style="margin-left:200px;margin-right:200px">
+			<div style="width:50%;display:inline-block;text-align:right">
+				<!-- input id="ut1" placeholder="University 1" /-->
+				<select id="u1" onchange="showChart()">
+				</select>
+			</div>
+			<div style="display:inline;">
+				<!-- input id="ut2" placeholder="University 2" /-->
+				<select id="u2" onchange="showChart()">
+				</select>
+			</div>
+		</div>
+
+		<div id="container" style="margin-left:200px;margin-right:200px"></div>
+		<div style="float:right;padding-right:15%">
+			<div style="float:right">
+				<img src="img/spider-chart.svg?sanitize=1" style="width:42px" alt="Spider Chart" title="Spider Chart" onclick="showChartSpider()" />
+				<img src="img/pyramid-chart-with-lines.svg?sanitize=1" style="width:32px" alt="Pyramid Chart" title="Pyramid Chart" onclick="showChart()" />
+				<img src="img/bar-chart.svg?sanitize=1" style="width:32px" alt="Bar Chart" title="Bar Chart" onclick="showChartBarSimple()" />
+			</div>
+			<div style="float:right;padding-right:20px;">
+				<input type="text" id="foo" value="">
+				<button class="btn" data-clipboard-target="#foo" alt="Share Comparison" title="Share Comparison">
+					<img class="clippy"  style="width:13px;" src="https://clipboardjs.com/assets/images/clippy.svg" alt="Copy to clipboard">
+				</button>
+				<br/>
+			</div>
+			<div style="float:right;padding-right:20px;">
+				<a style="font-size:10px" target="_blank" href="http://www.wipo.int/classifications/ipc/ipcpub/?notion=scheme&version=20180101&symbol=none&menulang=en&lang=en&viewmode=f&fipcpc=no&showdeleted=yes&indexes=no&headings=yes&notes=yes&direction=o2n&initial=A&cwid=none&tree=no&searchmode=ipccat">WIPO - IPC Publication </a>
+			</div>
+		</div>
+	</div>
+
+	<!-- div style="text-align:center;">
+		<div style="width:10%;display: inline-block;"></div>
+		<div style="width:80%;display: inline-block">
+		<table style="text-align:left;display:none;">
+			<tr>
+				<td>
+					<img alt="legal" class="ipcicon" src="img/A_HUMAN.png">
+					<span>Human Necessites</span>
+				</td>
+				<td>
+					<img alt="legal" class="ipcicon" src="img/B_TRANSPORTING.jpg">
+					<span>Performing Operations; Transporting</span>
+				</td>
+				<td>
+					<img alt="legal" class="ipcicon" src="img/C_CHEMISTRY.png">
+					<span>Chemistry; Metallurgy</span>
+				</td>
+				<td>
+					<img alt="legal" class="ipcicon" src="img/D_TEXTILES.jpg">
+					<span>Textiles; Paper</span>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<img alt="legal" class="ipcicon" src="img/E_FIXEDCONSTRUCTIONS.png">
+					<span>Fixed Constructions</span>
+				</td>
+				<td>
+					<img alt="legal" class="ipcicon" src="img/F_MECHANICAL.png">
+					<span>Mechanical Engineering</span>
+				</td>
+				<td>
+					<img alt="legal" class="ipcicon" src="img/G_PHYSICS.png">
+					<span>Physics</span>
+				</td>
+				<td>
+					<img alt="legal" class="ipcicon" src="img/H_ELECTRICITY.png">
+					<span>Electricity</span>
+				</td>
+			</tr>			
+		</table>
+	</div-->
+</body>
+</html>
