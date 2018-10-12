@@ -377,7 +377,7 @@ function showChartSpider() {
         }
     
         function copy_url() {
-            var url = "https://paulopaixao.github.io/Academia/index.html?";
+            var url = "https://paulopaixao.github.io/academia/index.html?";
             var t1 = get_selected_value("u1");
             var t2 = get_selected_value("u2");
     
