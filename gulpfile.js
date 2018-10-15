@@ -21,12 +21,12 @@ gulp.task('copy-img', function () {
 });
 
 gulp.task('deploy', function () {
-    gulp.src('dist/**/*')
-        .pipe(gulp.dest('../../Mis.WebApp/wwwroot/'));
+    gulp.src('./**/*')
+        .pipe(gulp.dest('./build/'));
 });
 
 gulp.task('compress', function() {
-    gulp.src(['js/ram.js', 'js/inc.js', 'js/upload.js'])
+    gulp.src(['js/index.js', 'js/realworld.388.js'])
         .pipe(minify({
             ext:{
                 src:'-debug.js',
@@ -44,7 +44,7 @@ gulp.task('watch', function () {
 });
 
 gulp.task('minify', function() {
-    return gulp.src(['inc.html','index.html','search.html','upload.html'])
+    return gulp.src(['index.html'])
         .pipe(htmlmin({collapseWhitespace: true,removeComments: true,}))
         .pipe(gulp.dest('dist'));
 });
