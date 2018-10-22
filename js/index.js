@@ -15,6 +15,7 @@ function get_category_name(letter) {
     
     function get_selected_value(elm_name) {
         var u1 = document.getElementById(elm_name).selectedIndex;
+        
         var x1 = document.getElementById(elm_name).options;
         if (x1[u1]===undefined) {
             return ""
@@ -28,8 +29,10 @@ function showChartBarSimple() {
     var categories = [
         'H', 'G', 'F', 'E', 'D', 'C', 'B', 'A'
     ];
-    var t1 = get_selected_value("u1");
-    var t2 = get_selected_value("u2");
+    var t1 = document.getElementById("ut1").value;
+    var t2 = document.getElementById("ut2").value;
+    //var t1 = get_selected_value("u1");
+    //var t2 = get_selected_value("u2");
 
     if (!((t1!=="")&&(t2!==""))) {
        t1 = "DANMARKS TEKNISKE UNIVERSITET";
@@ -124,8 +127,10 @@ function showChartSpider() {
     var categories = [
         'H', 'G', 'F', 'E', 'D', 'C', 'B', 'A'
     ];
-    var t1 = get_selected_value("u1");
-    var t2 = get_selected_value("u2");
+    var t1 = document.getElementById("ut1").value;
+    var t2 = document.getElementById("ut2").value;
+    //var t1 = get_selected_value("u1");
+    //var t2 = get_selected_value("u2");
 
     if (!((t1!=="")&&(t2!==""))) {
        t1 = "DANMARKS TEKNISKE UNIVERSITET";
@@ -219,17 +224,18 @@ function showChartSpider() {
                 pointPlacement: 'on'
             }]
         });
-
-
-
     });
- 
 }
 
     
     function showChart(){
+        var t1 = document.getElementById("ut1").value;
+        var t2 = document.getElementById("ut2").value;
+
+        /*
         var t1 = get_selected_value("u1");
         var t2 = get_selected_value("u2");
+        */
     
         if (!((t1!=="")&&(t2!==""))) {
            t1 = "DANMARKS TEKNISKE UNIVERSITET";
@@ -378,42 +384,83 @@ function showChartSpider() {
     
         function copy_url() {
             var url = "https://paulopaixao.github.io/academia/index.html?";
-            var t1 = get_selected_value("u1");
-            var t2 = get_selected_value("u2");
+            
+            var t1 = document.getElementById("ut1").value;
+            var t2 = document.getElementById("ut2").value;
+            //var t1 = get_selected_value("u1");
+            //var t2 = get_selected_value("u2");
     
             url += "uni1=" + encodeURIComponent(t1);
             url += "&uni2=" + encodeURIComponent(t2);
             $("#foo").val(url);
             return url;
         }
-    
+        var substringMatcher = function(strs) {
+            return function findMatches(q, cb) {
+              var matches, substringRegex;
+          
+              // an array that will be populated with substring matches
+              matches = [];
+          
+              // regex used to determine if a string contains the substring `q`
+              substrRegex = new RegExp(q, 'i');
+          
+              // iterate through the pool of strings and for any string that
+              // contains the substring `q`, add it to the `matches` array
+              $.each(strs, function(i, str) {
+                if (substrRegex.test(str)) {
+                  matches.push(str);
+                }
+              });
+          
+              cb(matches);
+            };
+          };
 
 
         $(document).ready(function(){
+            var t1 = document.getElementById("ut1").value;
+            var t2 = document.getElementById("ut2").value;
+            if (t1 == "") {
+               document.getElementById("ut1").value = "DANMARKS TEKNISKE UNIVERSITET";
+            }
+            if (t2 == "") {
+                document.getElementById("ut2").value = "MEDICAL UNIVERSITY OF SOUTH CAROLINA";
+            }
+            var urlt1 = getUrlParam("uni1");
+            var urlt2 = getUrlParam("uni2");
+            if (urlt1 && urlt2) {
+                document.getElementById("ut1").value = decodeURIComponent(urlt1);
+                document.getElementById("ut2").value = decodeURIComponent(urlt2);
+            }
+
+
+
+
             $.get("data/unis.json",function(r){
                 var sd = _.sortBy(r.data, 'normalizedName');
-                $.each(sd, function(i,e){
-
-                    $('#u1').append($('<option>', { 
-                        value: e.normalizedName,
-                        text : e.normalizedName
-                    }));
-                    $('#u2').append($('<option>', { 
-                        value: e.normalizedName,
-                        text : e.normalizedName
-                    }));		
+                var university_names = _.map(sd, function(item) {return item.normalizedName } );
+              
+               var states = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.whitespace,
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                local: university_names
+              });
+               
+                $('.typeahead').typeahead({
+                    hint: true,
+                    highlight: true,
+                    minLength: 1
+                },
+                {
+                    name: 'states',
+                    source: states
                 });
-                var uni1 = decodeURIComponent(getUrlParam("uni1"));
-                var uni2 = decodeURIComponent(getUrlParam("uni2"));
 
-                if ((uni1!==undefined)&&(uni2!==undefined)){
-                    $("#u1").val(uni1).change();
-                    $("#u2").val(uni2).change();
-                }
                 showChart();
             });
-            new ClipboardJS('.btn');
 
+            new ClipboardJS('.btn');
             var bgs = ["img/alejandro-escamilla-22-unsplash.jpg" ,"img/becca-tapert-391599-unsplash.jpg","img/markus-petritz-135033-unsplash.jpg","img/malte-baumann-82231-unsplash.jpg","img/michael-d-beckwith-754271-unsplash.jpg", "img/priscilla-du-preez-293218-unsplash.jpg","img/priscilla-du-preez-623040-unsplash.jpg"];
             var item = bgs[Math.floor(Math.random()*bgs.length)];
             $("#backgd").attr("src",item)
