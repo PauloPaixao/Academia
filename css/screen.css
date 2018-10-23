@@ -27,10 +27,22 @@
     border-radius: 4px;
 }
 
-
 body {
-    font-family: 'Roboto', sans-serif;
+      font-family: 'Lato', "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 18px;
+      line-height: 1.42857143;
+      color: #333333
 }
+
+tspan, text {
+  font-family:    'Lato', "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+a {
+  font-family:    'Lato', "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+
 select {
     margin:30px;
     font-size:25px;
@@ -142,4 +154,24 @@ button{font:13px/1.4 Helvetica,arial,nimbussansl,liberationsans,freesans,clean,s
 
 .tt-suggestion p {
   margin: 0;
+}
+
+
+.ln-tag-logo {
+  width: 4.64vw;
+  min-width: 69.27px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 6.73vw;
+  min-height: 101.2px;
+  z-index: 100;
+  background: #ed1c24;
+  text-decoration: none;
+  -webkit-transition: 0.2s left ease-in-out;
+  -moz-transition: 0.2s left ease-in-out;
+  -ms-transition: 0.2s left ease-in-out;
+  -o-transition: 0.2s left ease-in-out;
+  transition: 0.2s left ease-in-out;
+  color:#FFF;
 }
